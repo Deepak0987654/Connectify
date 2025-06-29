@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="@color/background_light"
+    tools:context=".OTP">
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/toolbar_background_light"
+        android:padding="10dp">
+
+        <ImageButton
+            android:id="@+id/back_arrow_icon_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/back_arrow_icon"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/back_arrow" />
+        <TextView
+            android:id="@+id/other_username"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/toolbar_text_light"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/back_arrow_icon_btn"
+            android:text="@string/enter_otp_code"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="70dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/text_secondary_light"
+            android:layout_marginEnd="10dp"
+            android:text="@string/code_has_been_sent_to" />
+        <TextView
+            android:id="@+id/phone_number_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_primary_light"
+            android:textSize="18sp"
+            android:text="@string/_0000_0000_00" />
+
+    </LinearLayout>
+
+    <com.chaos.view.PinView
+        android:id="@+id/pinview"
+        app:itemCount="6"
+        app:itemWidth="48dp"
+        app:itemHeight="48dp"
+        app:itemSpacing="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:itemBackground="@color/background_light"
+        android:layout_gravity="center"
+        android:inputType="number"
+        android:contentDescription="@string/todo"
+        android:labelFor="@string/pin_entry_description"
+        android:cursorVisible="true"
+        app:hideLineWhenFilled="true"
+        app:itemRadius="10dp"
+        app:lineWidth="2dp"
+        app:cursorWidth="2dp"
+        android:textSize="18sp"
+        style="@style/PinWidget.PinView"
+        tools:ignore="MissingClass" />
+
+
+    <TextView
+        android:id="@+id/timer_txt"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textSize="18sp"
+        android:textColor="@color/text_secondary_light"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="100dp"
+        android:text="Resend code in 52 Sec" />
+
+
+    <Button
+        android:id="@+id/verify_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/verify"
+        android:backgroundTint="@color/send_btn_light"
+        android:textColor="@color/text_primary_d_light"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        />
+
+</LinearLayout>
