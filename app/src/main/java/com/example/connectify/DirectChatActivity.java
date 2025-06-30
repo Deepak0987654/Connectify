@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -16,6 +17,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.connectify.Adapter.ChatRecyclerAdapter;
 import com.example.connectify.Utils.AndroidUtil;
 import com.example.connectify.Utils.FirebaseUtil;
@@ -41,6 +44,7 @@ public class DirectChatActivity extends AppCompatActivity {
     ImageButton backBtn, sendMessageBtn;
     TextView otherUsername;
     RecyclerView recyclerView;
+    ImageView profilePic;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -53,11 +57,12 @@ public class DirectChatActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        Log.i("seen", "onCreate: outside DirectChatActivity");
+        Log.i("seen", "onCreate: DirectChatActivity");
         // get User Model from Intent
+
         otherUser = AndroidUtil.getUserModelFromIntent(getIntent());
         chatRoomId = FirebaseUtil.getChatRoomId(FirebaseUtil.currentUserId(), otherUser.getUserId());
-
+        profilePic = findViewById(R.id.profile_pic_image_view);
         messageInput = findViewById(R.id.chat_message_input);
         backBtn = findViewById(R.id.back_arrow_icon_btn);
         sendMessageBtn = findViewById(R.id.message_send_btn);
@@ -65,11 +70,19 @@ public class DirectChatActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.direct_chat_recycle_view);
 
         backBtn.setOnClickListener((v)->{
-
             onBackPressed();
 
         });
         otherUsername.setText(otherUser.getUsername());
+
+            String profileUrl = otherUser.getUrl();
+            if (profileUrl != null && !profileUrl.isEmpty()) {
+                Glide.with(this)
+                        .load(profileUrl)
+                        .placeholder(R.drawable.man_3)
+                        .transform(new CircleCrop())
+                        .into(profilePic);
+            }
 
         sendMessageBtn.setOnClickListener((v)-> {
             String message = messageInput.getText().toString().trim();
@@ -144,7 +157,7 @@ public class DirectChatActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Log.i("seen", "onDestroy: outside DirectChatActivity");
+        Log.i("seen", "onDestroy:  DirectChatActivity");
         super.onDestroy();
     }
 }

@@ -8,11 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.connectify.DirectChatActivity;
 import com.example.connectify.R;
 import com.example.connectify.Utils.AndroidUtil;
@@ -37,6 +38,13 @@ public class SearchUserRecyclerAdapter extends FirestoreRecyclerAdapter<UserMode
         if(model.getUserId().equals(FirebaseUtil.currentUserId())){
             holder.itemView.setVisibility(View.GONE);
         }
+        if (model.getUrl() != null && !model.getUrl().isEmpty()) {
+            Glide.with(context)
+                    .load(model.getUrl())
+                    .placeholder(R.drawable.man_3)
+                    .transform(new CircleCrop())
+                    .into(holder.profilePic);
+        }
         holder.itemView.setOnClickListener(v -> {
             // navigate to chat Activity
             Intent intent = new Intent(context, DirectChatActivity.class);
@@ -58,13 +66,13 @@ public class SearchUserRecyclerAdapter extends FirestoreRecyclerAdapter<UserMode
 
     public static class UserModelViewHolder extends RecyclerView.ViewHolder {
         TextView usernameText, phoneText;
-        ImageView ProfilePic;
+        ImageView profilePic;
 
         public UserModelViewHolder(@NonNull View itemView) {
             super(itemView);
             usernameText = itemView.findViewById(R.id.user_name_txt);
             phoneText = itemView.findViewById(R.id.phone_txt);
-            ProfilePic = itemView.findViewById(R.id.profile_pic_image_view);
+            profilePic = itemView.findViewById(R.id.profile_pic_image_view);
         }
     }
 }

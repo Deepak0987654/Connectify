@@ -2,12 +2,8 @@ package com.example.connectify.Utils;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.connectify.model.UserModel;
 
 public class AndroidUtil {
@@ -18,16 +14,15 @@ public class AndroidUtil {
         intent.putExtra("username", model.getUsername());
         intent.putExtra("phone", model.getPhone());
         intent.putExtra("userId", model.getUserId());
+        intent.putExtra("url", model.getUrl());
     }
     public static UserModel getUserModelFromIntent(Intent intent) {
         UserModel model = new UserModel();
         model.setUsername(intent.getStringExtra("username"));
         model.setPhone(intent.getStringExtra("phone"));
         model.setUserId(intent.getStringExtra("userId"));
+        model.setUrl(intent.getStringExtra("url"));
         return model;
-    }
-    public static void setProfilePic(Context context, Uri imageUri, ImageView imageView) {
-        Glide.with(context).load(imageUri).apply(RequestOptions.circleCropTransform()).into(imageView);
     }
 
 

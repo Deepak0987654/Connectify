@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,13 +21,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.cloudinary.android.MediaManager;
+import com.cloudinary.android.callback.ErrorInfo;
+import com.cloudinary.android.callback.UploadCallback;
 import com.example.connectify.Utils.AndroidUtil;
 import com.example.connectify.Utils.FirebaseUtil;
 import com.example.connectify.model.UserModel;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
+import java.util.Map;
+import java.util.Objects;
 
 public class ProfileActivity extends AppCompatActivity {
     ImageView profilePic;
@@ -36,7 +42,8 @@ public class ProfileActivity extends AppCompatActivity {
     UserModel currentUserModel;
     ProgressBar progressBar;
     ActivityResultLauncher<Intent> imagePickLauncher;
-    Uri selectedImageUri;
+    Uri imageUri;
+    private static final String TAG = "updateIssue";
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -55,15 +62,6 @@ public class ProfileActivity extends AppCompatActivity {
         updateButton = findViewById(R.id.profile_update_button);
         backButton = findViewById(R.id.back_arrow_icon_btn);
         progressBar = findViewById(R.id.profile_progress_bar);
-        imagePickLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-            if(result.getResultCode() == Activity.RESULT_OK){
-                Intent data = result.getData();
-                if(data != null && data.getData() != null){
-                    selectedImageUri = data.getData();
-                    AndroidUtil.setProfilePic(this,selectedImageUri,profilePic);
-                }
-            }
-        });
         backButton.setOnClickListener(v -> {
             onBackPressed();
         });
@@ -71,16 +69,26 @@ public class ProfileActivity extends AppCompatActivity {
         updateButton.setOnClickListener(v -> {
             updateBtnClick();
         });
+        imagePickLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if(result.getResultCode() == Activity.RESULT_OK){
+                Intent data = result.getData();
+                if(data != null && data.getData() != null){
+                    imageUri = data.getData();
+                    Glide.with(this)
+                            .load(imageUri)
+                            .transform(new CircleCrop())  // 🔁 applies circular transformation
+                            .into(profilePic);
+                }
+            }
+        });
         profilePic.setOnClickListener(v -> {
             ImagePicker.with(this).cropSquare().compress(512).maxResultSize(512,512)
-                    .createIntent(new Function1<Intent, Unit>() {
-                        @Override
-                        public Unit invoke(Intent intent) {
-                            imagePickLauncher.launch(intent);
-                            return null;
-                        }
+                    .createIntent(intent -> {
+                        imagePickLauncher.launch(intent);
+                        return null;
                     });
         });
+
     }
     void updateBtnClick(){
         String newUsername = usernameInput.getText().toString();
@@ -90,16 +98,16 @@ public class ProfileActivity extends AppCompatActivity {
         }
         currentUserModel.setUsername(newUsername);
         setInProgress(true);
-        updateToFirestore();
+        uploadImageToCloudinary(imageUri);
     }
     void updateToFirestore(){
         FirebaseUtil.currentUserDetails().set(currentUserModel)
                 .addOnCompleteListener(task -> {
                     setInProgress(false);
                     if(task.isSuccessful()){
-                        AndroidUtil.showToast(this, "Profile updated successfully");
+                        AndroidUtil.showToast(profilePic.getContext(),"Profile updated successfully");
                     }else{
-                        AndroidUtil.showToast(this, "Failed to update profile");
+                        AndroidUtil.showToast(profilePic.getContext(),"Failed to update profile");
                     }
                 });
     }
@@ -112,6 +120,13 @@ public class ProfileActivity extends AppCompatActivity {
             assert currentUserModel != null;
             usernameInput.setText(currentUserModel.getUsername());
             phoneInput.setText(currentUserModel.getPhone());
+            if (currentUserModel.getUrl() != null && !currentUserModel.getUrl().isEmpty()) {
+                Glide.with(ProfileActivity.this)
+                        .load(currentUserModel.getUrl())
+                        .placeholder(R.drawable.man_3)
+                        .transform(new CircleCrop())
+                        .into(profilePic);
+            }
 
         });
     }
@@ -124,4 +139,42 @@ public class ProfileActivity extends AppCompatActivity {
             updateButton.setVisibility(View.VISIBLE);
         }
     }
+    private void uploadImageToCloudinary(Uri uri) {
+        if (uri == null) {
+            Log.d(TAG, "No image selected");
+            updateToFirestore();
+            return;
+        }
+
+        MediaManager.get().upload(uri)
+                .callback(new UploadCallback() {
+                    @Override
+                    public void onStart(String requestId) {
+                        Log.d("Cloudinary", "Upload started");
+                    }
+
+                    @Override
+                    public void onProgress(String requestId, long bytes, long totalBytes) {}
+
+                    @Override
+                    public void onSuccess(String requestId, Map resultData) {
+                        String url = Objects.requireNonNull(resultData.get("secure_url")).toString();
+                        Log.d("Cloudinary", "Uploaded URL: " + url);
+
+                        currentUserModel.setUrl(url);
+                        updateToFirestore();
+                    }
+
+                    @Override
+                    public void onError(String requestId, ErrorInfo error) {
+                        Log.d(TAG,"Upload failed: " + error.getDescription());
+                        updateToFirestore();
+                    }
+
+                    @Override
+                    public void onReschedule(String requestId, ErrorInfo error) {}
+                })
+                .dispatch();
+    }
+
 }

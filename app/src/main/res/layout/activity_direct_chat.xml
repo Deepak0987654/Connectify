@@ -32,12 +32,12 @@
             android:textColor="@color/toolbar_text_light"
             android:layout_width="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/profile_pic_layout"
+            android:layout_toEndOf="@id/profile_pic"
             android:text="@string/username"
             android:textSize="20sp"
             android:textStyle="bold" />
         <include layout="@layout/profile_pic_view"
-            android:id="@+id/profile_pic_layout"
+            android:id="@+id/profile_pic"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="5dp"
@@ -63,7 +63,7 @@
         <EditText
             android:id="@+id/chat_message_input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_centerInParent="true"
             android:layout_margin="10dp"
             android:layout_toStartOf="@id/message_send_btn"
@@ -75,7 +75,7 @@
             android:minHeight="48dp"
             android:padding="10dp"
             android:textColor="@color/text_primary_light"
-            />
+            tools:ignore="TouchTargetSizeCheck" />
         <ImageButton
             android:layout_width="48dp"
             android:layout_height="48dp"

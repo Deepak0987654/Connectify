@@ -67,13 +67,18 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation("com.google.firebase:firebase-auth")
 
-    // to load images from Urls using librar like glide or picasso
+    // to load images from Urls using library like glide or picasso
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
     // FirebaseUI for Cloud Firestore
     implementation("com.firebaseui:firebase-ui-firestore:9.0.0")
 
     // Image Picker
     implementation("com.github.dhaval2404:imagepicker:2.1")
+
+    // Cloudinary -> for Storage
+    implementation("com.cloudinary:cloudinary-android:2.4.0")
+
 
 }

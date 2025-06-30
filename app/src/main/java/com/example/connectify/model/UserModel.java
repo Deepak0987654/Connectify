@@ -7,7 +7,7 @@ public class UserModel {
     private String username;
     private Timestamp createdTimestamp;
     private String userId;
-    private String fcmToken;
+    private String url;
 
     public UserModel(String phone, String username, Timestamp createdTimestamp,String userId) {
         this.phone = phone;
@@ -51,11 +51,12 @@ public class UserModel {
         this.createdTimestamp = createdTimestamp;
     }
 
-    public String getFcmToken() {
-        return fcmToken;
+    public String getUrl() {
+        return url;
     }
 
-    public void setFcmToken(String fcmToken) {
-        this.fcmToken = fcmToken;
+    public void setUrl(String url) {
+        this.url = url;
     }
+
 }
