@@ -52,7 +52,6 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="2dp"
                 android:paddingEnd="2dp"
-                android:text="@string/phone_number"
                 android:textColor="@color/text_secondary_light"
                 />
             <ImageView
@@ -61,6 +60,7 @@
                 android:layout_height="20dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/image"
+                android:visibility="gone"
                 android:contentDescription="@string/todo" />
             <TextView
                 android:id="@+id/last_message_txt"
@@ -68,7 +68,6 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="2dp"
                 android:paddingEnd="2dp"
-                android:text="hi"
                 android:textColor="@color/text_secondary_light" />
 
         </LinearLayout>

@@ -85,4 +85,7 @@ dependencies {
     // required by Cloudinary -> for video
     implementation("androidx.work:work-runtime:2.9.0")
 
+    // PhotoView
+    implementation("com.github.chrisbanes:PhotoView:2.3.0")
+
 }

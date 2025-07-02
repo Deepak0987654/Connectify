@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.connectify.ImageViewerActivity;
 import com.example.connectify.R;
 import com.example.connectify.Utils.FirebaseUtil;
 import com.example.connectify.model.ChatMessageModel;
@@ -45,6 +46,12 @@ public class ChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatMessageMod
                             .placeholder(R.drawable.ic_launcher_foreground)
                             .into(holder.rightChatImageView);
 
+                    holder.rightChatImageView.setOnClickListener(v -> {
+                        Intent intent = new Intent(context, ImageViewerActivity.class);
+                        intent.putExtra("imageUrl", model.getMessage());
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+                    });
 
                     break;
                 case "video":
@@ -91,6 +98,13 @@ public class ChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatMessageMod
                             .load(model.getMessage()) // URL of image
                             .placeholder(R.drawable.ic_launcher_foreground)
                             .into(holder.leftChatImageView);
+
+                    holder.rightChatImageView.setOnClickListener(v -> {
+                        Intent intent = new Intent(context, ImageViewerActivity.class);
+                        intent.putExtra("imageUrl", model.getMessage());
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+                    });
                     break;
                 case "video":
                     holder.leftChatTextView.setVisibility(View.GONE);
@@ -117,7 +131,7 @@ public class ChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatMessageMod
                         }
                     });
                     break;
-                default:
+                case "text":
                     holder.leftChatImageView.setVisibility(View.GONE);
                     holder.leftChatTextView.setVisibility(View.VISIBLE);
                     holder.leftChatTextView.setText(model.getMessage());

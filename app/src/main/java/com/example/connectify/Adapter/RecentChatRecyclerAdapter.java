@@ -63,6 +63,9 @@ public class RecentChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatRoom
                         switch (type) {
                             case "image":
                                 Log.e("seen", "onBindViewHolder: image" );
+                                holder.lastMessageImage.setVisibility(View.VISIBLE);
+                                holder.imageText.setVisibility(View.VISIBLE);
+                                holder.lastMessageText.setVisibility(View.VISIBLE);
                                 holder.lastMessageImage.setImageResource(R.drawable.image);
                                 holder.lastMessageText.setText("photo");
                                 if (lastMessageSentByMe)
@@ -71,6 +74,9 @@ public class RecentChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatRoom
                                 break;
                             case "video":
                                 Log.e("seen", "onBindViewHolder: video" );
+                                holder.lastMessageImage.setVisibility(View.VISIBLE);
+                                holder.imageText.setVisibility(View.VISIBLE);
+                                holder.lastMessageText.setVisibility(View.VISIBLE);
                                 holder.lastMessageImage.setImageResource(R.drawable.image);
                                 holder.lastMessageText.setText("Video");
                                 if (lastMessageSentByMe)
