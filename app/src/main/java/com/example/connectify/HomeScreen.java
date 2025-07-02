@@ -20,8 +20,11 @@ import com.example.connectify.Utils.FirebaseUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class HomeScreen extends AppCompatActivity {
     TabLayout tabLayout;
@@ -155,12 +158,34 @@ public class HomeScreen extends AppCompatActivity {
         } catch (Exception e) {
             Log.e("HomeScreen", "Error in onResume: " + e.getMessage(), e);
         }
+        FirebaseUtil.currentUserDetails().get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                FirebaseUtil.currentUserDetails().update("online", true);
+            } else {
+                // Safe fallback - create user document
+                Map<String, Object> data = new HashMap<>();
+                data.put("online", true);
+                FirebaseUtil.currentUserDetails().set(data, SetOptions.merge());
+            }
+        });
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         Log.i("seen", "onPause: HomeScreen");
+        FirebaseUtil.currentUserDetails().get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                FirebaseUtil.currentUserDetails().update("online", false, "lastSeen", com.google.firebase.Timestamp.now());
+            } else {
+                // Safe fallback - create user document
+                Map<String, Object> data = new HashMap<>();
+                data.put("online", false);
+                data.put("lastSeen", com.google.firebase.Timestamp.now());
+                FirebaseUtil.currentUserDetails().set(data, SetOptions.merge());
+            }
+        });
     }
 
     @Override

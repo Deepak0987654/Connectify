@@ -8,6 +8,8 @@ public class UserModel {
     private Timestamp createdTimestamp;
     private String userId;
     private String url;
+    private Boolean online;
+    private Timestamp lastSeen;
 
     public UserModel(String phone, String username, Timestamp createdTimestamp,String userId) {
         this.phone = phone;
@@ -59,4 +61,19 @@ public class UserModel {
         this.url = url;
     }
 
+    public Boolean getOnline() {
+        return online;
+    }
+
+    public void setOnline(Boolean online) {
+        this.online = online;
+    }
+
+    public Timestamp getLastSeen() {
+        return lastSeen;
+    }
+
+    public void setLastSeen(Timestamp lastSeen) {
+        this.lastSeen = lastSeen;
+    }
 }

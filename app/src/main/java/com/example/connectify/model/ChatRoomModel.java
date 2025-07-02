@@ -5,20 +5,24 @@ import com.google.firebase.Timestamp;
 import java.util.List;
 
 public class ChatRoomModel {
-    String chatroomId;
-    List<String> userIds;
-    Timestamp lastMessageTimestamp;
-    String lastMessageSenderId;
-    String lastMessage;
+    private String chatroomId;
+    private List<String> userIds;
+    private Timestamp lastMessageTimestamp;
+    private String lastMessageSenderId;
+    private String lastMessage;
+    private boolean isLastImage;
 
     public ChatRoomModel() {
     }
 
-    public ChatRoomModel(String chatroomId, List<String> userIds, Timestamp lastMessageTimestamp, String lastMessageSenderId, String lastMessage) {
+    public ChatRoomModel(String chatroomId, List<String> userIds, Timestamp lastMessageTimestamp, String lastMessageSenderId, String lastMessage, boolean isLastImage) {
         this.chatroomId = chatroomId;
         this.userIds = userIds;
         this.lastMessageTimestamp = lastMessageTimestamp;
         this.lastMessageSenderId = lastMessageSenderId;
+        this.lastMessage = lastMessage;
+        this.isLastImage = isLastImage;
+
     }
 
     public String getChatroomId() {
@@ -59,5 +63,13 @@ public class ChatRoomModel {
 
     public void setLastMessage(String lastMessage) {
         this.lastMessage = lastMessage;
+    }
+
+    public boolean getIsLastImage() {
+        return isLastImage;
+    }
+
+    public void setLastImage(boolean image) {
+        isLastImage = image;
     }
 }

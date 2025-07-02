@@ -55,11 +55,23 @@ public class RecentChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatRoom
                             holder.profilePic.setImageResource(R.drawable.man_3);
                         }
 
+                        if(model.getIsLastImage()){
+                            holder.lastMessageImage.setVisibility(View.VISIBLE);
+                            holder.imageText.setVisibility(View.VISIBLE);
+                            holder.imageText.setText("Photo");
+                            if(lastMessageSentByMe)
+                                holder.lastMessageText.setText("You : ");
 
-                        if (lastMessageSentByMe)
-                            holder.lastMessageText.setText("You : " + model.getLastMessage());
-                        else
-                            holder.lastMessageText.setText(model.getLastMessage());
+                        }else{
+                            holder.imageText.setVisibility(View.GONE);
+                            holder.lastMessageImage.setVisibility(View.GONE);
+                            if (lastMessageSentByMe)
+                                holder.lastMessageText.setText("You : " + model.getLastMessage());
+                            else
+                                holder.lastMessageText.setText(model.getLastMessage());
+                        }
+
+
 
                         holder.lastMessageTime.setText(FirebaseUtil.formatTimestamp(model.getLastMessageTimestamp()));
                         holder.itemView.setOnClickListener(v -> {
@@ -83,8 +95,8 @@ public class RecentChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatRoom
 
 
     public static class ChatRoomModelViewHolder extends RecyclerView.ViewHolder {
-        TextView usernameText, lastMessageText, lastMessageTime;
-        ImageView profilePic;
+        TextView usernameText, lastMessageText, lastMessageTime, imageText;
+        ImageView profilePic, lastMessageImage;
 
         public ChatRoomModelViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,6 +104,8 @@ public class RecentChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatRoom
             lastMessageText = itemView.findViewById(R.id.last_message_txt);
             lastMessageTime = itemView.findViewById(R.id.last_message_time_txt);
             profilePic = itemView.findViewById(R.id.profile_pic_image_view);
+            lastMessageImage = itemView.findViewById(R.id.last_message_image);
+            imageText = itemView.findViewById(R.id.image_description_txt);
         }
     }
 }

@@ -2,27 +2,21 @@ package com.example.connectify.Fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.connectify.Adapter.RecentChatRecyclerAdapter;
 import com.example.connectify.R;
 import com.example.connectify.Utils.FirebaseUtil;
 import com.example.connectify.model.ChatRoomModel;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.Query;
-
-import java.util.Objects;
 
 
 public class ChatsFragment extends Fragment {
@@ -90,6 +84,15 @@ public class ChatsFragment extends Fragment {
         super.onResume();
         if(adapter!=null){
             adapter.startListening();
+        }
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(adapter!=null){
+            adapter.stopListening();
         }
     }
 

@@ -30,7 +30,9 @@ import com.example.connectify.Utils.AndroidUtil;
 import com.example.connectify.Utils.FirebaseUtil;
 import com.example.connectify.model.UserModel;
 import com.github.dhaval2404.imagepicker.ImagePicker;
+import com.google.firebase.firestore.SetOptions;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -76,7 +78,7 @@ public class ProfileActivity extends AppCompatActivity {
                     imageUri = data.getData();
                     Glide.with(this)
                             .load(imageUri)
-                            .transform(new CircleCrop())  // 🔁 applies circular transformation
+                            .transform(new CircleCrop())  // applies circular transformation
                             .into(profilePic);
                 }
             }
@@ -175,6 +177,36 @@ public class ProfileActivity extends AppCompatActivity {
                     public void onReschedule(String requestId, ErrorInfo error) {}
                 })
                 .dispatch();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        FirebaseUtil.currentUserDetails().get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                FirebaseUtil.currentUserDetails().update("online", true);
+            } else {
+                // Safe fallback - create user document
+                Map<String, Object> data = new HashMap<>();
+                data.put("online", true);
+                FirebaseUtil.currentUserDetails().set(data, SetOptions.merge());
+            }
+        });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseUtil.currentUserDetails().get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                FirebaseUtil.currentUserDetails().update("online", false,"lastSeen", com.google.firebase.Timestamp.now());
+            } else {
+                // Safe fallback - create user document
+                Map<String, Object> data = new HashMap<>();
+                data.put("online", false);
+                data.put("lastSeen", com.google.firebase.Timestamp.now());
+                FirebaseUtil.currentUserDetails().set(data, SetOptions.merge());
+            }
+        });
     }
 
 }

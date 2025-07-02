@@ -1,6 +1,5 @@
 package com.example.connectify;
 
-import android.app.ActivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
@@ -19,10 +18,11 @@ import com.example.connectify.Adapter.SearchUserRecyclerAdapter;
 import com.example.connectify.Utils.FirebaseUtil;
 import com.example.connectify.model.UserModel;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.SetOptions;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SearchUserActivity extends AppCompatActivity {
 
@@ -115,12 +115,33 @@ public class SearchUserActivity extends AppCompatActivity {
                 Log.e("SearchUserActivity", "Error in onResume: " + e.getMessage(), e);
             }
         }
+        FirebaseUtil.currentUserDetails().get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                FirebaseUtil.currentUserDetails().update("online", true);
+            } else {
+                // Safe fallback - create user document
+                Map<String, Object> data = new HashMap<>();
+                data.put("online", true);
+                FirebaseUtil.currentUserDetails().set(data, SetOptions.merge());
+            }
+        });
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         Log.i("seen", "onPause: SearchUserActivity");
+        FirebaseUtil.currentUserDetails().get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                FirebaseUtil.currentUserDetails().update("online", false,"lastSeen", com.google.firebase.Timestamp.now());
+            } else {
+                // Safe fallback - create user document
+                Map<String, Object> data = new HashMap<>();
+                data.put("online", false);
+                data.put("lastSeen", com.google.firebase.Timestamp.now());
+                FirebaseUtil.currentUserDetails().set(data, SetOptions.merge());
+            }
+        });
     }
 
     @Override

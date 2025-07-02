@@ -46,4 +46,8 @@
     <string name="status">Status</string>
     <string name="groups">Groups</string>
     <string name="calls">Calls</string>
+    <string name="choose_an_option">Choose an option</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="location">Location</string>
 </resources>

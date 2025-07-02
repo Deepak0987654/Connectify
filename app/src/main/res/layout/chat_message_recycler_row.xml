@@ -19,7 +19,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/text_primary_light"
+            android:visibility="gone"
             android:textSize="18sp"/>
+        <ImageView
+            android:id="@+id/left_chat_imageview"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/right_chat_layout"
@@ -35,7 +43,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/text_primary_light"
+            android:visibility="gone"
             android:textSize="18sp"/>
+        <ImageView
+            android:id="@+id/right_chat_imageview"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
     </LinearLayout>
 
 </RelativeLayout>
