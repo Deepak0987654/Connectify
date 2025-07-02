@@ -6,16 +6,16 @@ public class ChatMessageModel {
     private String message;
     private String senderId;
     private Timestamp timestamp;
-    private boolean isImage;
+    private String type="text"; // "text", "image", "video"
 
     public ChatMessageModel() {
     }
 
-    public ChatMessageModel(String message, String senderId, Timestamp timestamp, boolean isImage) {
+    public ChatMessageModel(String message, String senderId, Timestamp timestamp, String type) {
         this.message = message;
         this.senderId = senderId;
         this.timestamp = timestamp;
-        this.isImage = isImage;
+        this.type = type;
 
     }
 
@@ -43,11 +43,6 @@ public class ChatMessageModel {
         this.timestamp = timestamp;
     }
 
-    public boolean isImage() {
-        return isImage;
-    }
-
-    public void setImage(boolean image) {
-        isImage = image;
-    }
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
 }

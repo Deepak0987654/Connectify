@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
@@ -48,6 +47,7 @@ import java.util.Objects;
 
 public class DirectChatActivity extends AppCompatActivity {
 
+    private static final int REQUEST_VIDEO_PICK = 1002;
     UserModel otherUser;
     String chatRoomId;
     ChatRoomModel chatRoomModel;
@@ -100,6 +100,7 @@ public class DirectChatActivity extends AppCompatActivity {
                     return false;
             });
 
+
         backBtn.setOnClickListener((v)->{
             onBackPressed();
 
@@ -122,7 +123,6 @@ public class DirectChatActivity extends AppCompatActivity {
                     }
                 });
 
-
         String profileUrl = otherUser.getUrl();
         if (profileUrl != null && !profileUrl.isEmpty()) {
             Glide.with(this)
@@ -130,13 +130,15 @@ public class DirectChatActivity extends AppCompatActivity {
                     .placeholder(R.drawable.man_3)
                     .transform(new CircleCrop())
                     .into(profilePic);
+        }else{
+            profilePic.setImageResource(R.drawable.man_3);
         }
 
         sendMessageBtn.setOnClickListener((v)-> {
             String message = messageInput.getText().toString().trim();
             if(message.isEmpty())
                 return;
-            sendMessageToUser(message, false);
+            sendMessageToUser(message, "text");
         });
 
         getOrCreateChatRoomModel();
@@ -156,6 +158,11 @@ public class DirectChatActivity extends AppCompatActivity {
                 .galleryOnly()
                 .crop()
                 .start();
+    }
+    void pickVideoFromGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("video/*");
+        startActivityForResult(intent, REQUEST_VIDEO_PICK);
     }
 
     void shareLocation() {
@@ -179,6 +186,10 @@ public class DirectChatActivity extends AppCompatActivity {
             bottomSheetDialog.dismiss();
             openGallery();
         });
+        view.findViewById(R.id.option_video).setOnClickListener(v -> {
+            bottomSheetDialog.dismiss();
+            pickVideoFromGallery();
+        });
 
         view.findViewById(R.id.option_location).setOnClickListener(v -> {
             bottomSheetDialog.dismiss();
@@ -190,6 +201,7 @@ public class DirectChatActivity extends AppCompatActivity {
 
 
     void setupChatRecyclerView(){
+        Log.i("seen", "inside: setupChatRecyclerView");
         Query query = FirebaseUtil.getChatRoomMessageReference(chatRoomId)
                 .orderBy("timestamp", Query.Direction.DESCENDING);
 
@@ -209,15 +221,16 @@ public class DirectChatActivity extends AppCompatActivity {
                 recyclerView.smoothScrollToPosition(0);
             }
         });
+        Log.i("seen", "outside: setupChatRecyclerView");
     }
-    void sendMessageToUser(String message, boolean isImage){
+    void sendMessageToUser(String message, String type){
         chatRoomModel.setLastMessageTimestamp(Timestamp.now());
         chatRoomModel.setLastMessageSenderId(FirebaseUtil.currentUserId());
         chatRoomModel.setLastMessage(message);
-        chatRoomModel.setLastImage(isImage);
+        chatRoomModel.setType(type);
         FirebaseUtil.getChatRoomReference(chatRoomId).set(chatRoomModel);
 
-        ChatMessageModel chatMessageModel = new ChatMessageModel(message,FirebaseUtil.currentUserId(),Timestamp.now(), isImage);
+        ChatMessageModel chatMessageModel = new ChatMessageModel(message,FirebaseUtil.currentUserId(),Timestamp.now(), type);
         FirebaseUtil.getChatRoomMessageReference(chatRoomId).add(chatMessageModel)
                         .addOnCompleteListener(task -> {
                             if(task.isSuccessful()){
@@ -228,25 +241,49 @@ public class DirectChatActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (resultCode == RESULT_OK && data != null) {
-            Uri imageUri = data.getData();
-            MediaManager.get().upload(imageUri)
-                    .callback(new UploadCallback() {
-                        @Override
-                        public void onSuccess(String requestId, Map resultData) {
-                            String imageUrl = Objects.requireNonNull(resultData.get("secure_url")).toString();
-                            sendMessageToUser(imageUrl, true);
-                        }
-                        @Override public void onError(String requestId, ErrorInfo error) {
-                            Toast.makeText(getApplicationContext(), "Upload failed", Toast.LENGTH_SHORT).show();
-                        }
-                        @Override public void onStart(String requestId) {}
-                        @Override public void onProgress(String requestId, long bytes, long totalBytes) {}
-                        @Override public void onReschedule(String requestId, ErrorInfo error) {}
-                    }).dispatch();
+            Uri fileUri = data.getData();
+            if(requestCode == REQUEST_VIDEO_PICK){
+                MediaManager.get().upload(fileUri)
+                        .option("resource_type", "video")
+                        .callback(new UploadCallback() {
+                            @Override
+                            public void onSuccess(String requestId, Map resultData) {
+                                String videoUrl = Objects.requireNonNull(resultData.get("secure_url")).toString();
+                                sendMessageToUser(videoUrl, "video");
+                            }
+                            @Override public void onError(String requestId, ErrorInfo error) {
+                                AndroidUtil.showToast(getApplicationContext(), "Video upload failed");
+                            }
+                            @Override public void onStart(String requestId) {}
+                            @Override public void onProgress(String requestId, long bytes, long totalBytes) {
+                                AndroidUtil.showToast(getApplicationContext(), "Video uploading");
+                            }
+                            @Override public void onReschedule(String requestId, ErrorInfo error) {}
+                        }).dispatch();
+
+            }else{
+                MediaManager.get().upload(fileUri)
+                        .callback(new UploadCallback() {
+                            @Override
+                            public void onSuccess(String requestId, Map resultData) {
+                                String imageUrl = Objects.requireNonNull(resultData.get("secure_url")).toString();
+                                sendMessageToUser(imageUrl, "image");
+                            }
+                            @Override public void onError(String requestId, ErrorInfo error) {
+                                AndroidUtil.showToast(getApplicationContext(), "Image upload failed");
+                            }
+                            @Override public void onStart(String requestId) {}
+                            @Override public void onProgress(String requestId, long bytes, long totalBytes) {}
+                            @Override public void onReschedule(String requestId, ErrorInfo error) {}
+                        }).dispatch();
+            }
         }
+
     }
     void getOrCreateChatRoomModel(){
+        Log.i("seen", "inside: getOrCreateChatRoomModel");
         FirebaseUtil.getChatRoomReference(chatRoomId).get().addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 chatRoomModel = task.getResult().toObject(ChatRoomModel.class);
@@ -258,13 +295,14 @@ public class DirectChatActivity extends AppCompatActivity {
                             Timestamp.now(),
                             "",
                             "",
-                            false
+                            "text"
                     );
                     FirebaseUtil.getChatRoomReference(chatRoomId).set(chatRoomModel);
 
                 }
             }
         });
+        Log.i("seen", "outside: getOrCreateChatRoomModel");
     }
 
     @Override

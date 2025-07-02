@@ -22,6 +22,12 @@
         android:layout_height="wrap_content"
         android:text="@string/gallery" />
 
+    <Button android:id="@+id/option_video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/video" />
+
+
     <Button android:id="@+id/option_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

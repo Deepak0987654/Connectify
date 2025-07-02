@@ -3,6 +3,7 @@ package com.example.connectify.Adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,13 +30,14 @@ public class RecentChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatRoom
     public RecentChatRecyclerAdapter(@NonNull FirestoreRecyclerOptions<ChatRoomModel> options, Context context) {
         super(options);
         this.context = context;
+        Log.e("seen", "RecentChatRecyclerAdapter: inside");
     }
 
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onBindViewHolder(@NonNull ChatRoomModelViewHolder holder, int position, @NonNull ChatRoomModel model) {
-
+        Log.e("seen", "RecentChatRecyclerAdapter: on bind");
         FirebaseUtil.getOtherUserFromChatRoom(model.getUserIds())
                 .get().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -54,24 +56,36 @@ public class RecentChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatRoom
                         } else {
                             holder.profilePic.setImageResource(R.drawable.man_3);
                         }
+                        String type = model.getType().replace("\"", "").trim();
+                        Log.e("see ", "model: "+type);
 
-                        if(model.getIsLastImage()){
-                            holder.lastMessageImage.setVisibility(View.VISIBLE);
-                            holder.imageText.setVisibility(View.VISIBLE);
-                            holder.imageText.setText("Photo");
-                            if(lastMessageSentByMe)
-                                holder.lastMessageText.setText("You : ");
 
-                        }else{
-                            holder.imageText.setVisibility(View.GONE);
-                            holder.lastMessageImage.setVisibility(View.GONE);
-                            if (lastMessageSentByMe)
-                                holder.lastMessageText.setText("You : " + model.getLastMessage());
-                            else
-                                holder.lastMessageText.setText(model.getLastMessage());
+                        switch (type) {
+                            case "image":
+                                Log.e("seen", "onBindViewHolder: image" );
+                                holder.lastMessageImage.setImageResource(R.drawable.image);
+                                holder.lastMessageText.setText("photo");
+                                if (lastMessageSentByMe)
+                                    holder.imageText.setText("You : ");
+
+                                break;
+                            case "video":
+                                Log.e("seen", "onBindViewHolder: video" );
+                                holder.lastMessageImage.setImageResource(R.drawable.image);
+                                holder.lastMessageText.setText("Video");
+                                if (lastMessageSentByMe)
+                                    holder.imageText.setText("You : ");
+                                break;
+                            case "text":
+                                Log.e("seen", "onBindViewHolder: text" );
+                                holder.lastMessageImage.setVisibility(View.GONE);
+                                holder.imageText.setVisibility(View.GONE);
+                                if (lastMessageSentByMe)
+                                    holder.lastMessageText.setText("You : " + model.getLastMessage());
+                                else
+                                    holder.lastMessageText.setText(model.getLastMessage());
+                                break;
                         }
-
-
 
                         holder.lastMessageTime.setText(FirebaseUtil.formatTimestamp(model.getLastMessageTimestamp()));
                         holder.itemView.setOnClickListener(v -> {
@@ -84,6 +98,7 @@ public class RecentChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatRoom
                     }
 
                 });
+                    Log.e("seen", "RecentChatRecyclerAdapter: outside + "+ model.getLastMessage());
     }
 
     @NonNull

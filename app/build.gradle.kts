@@ -80,5 +80,9 @@ dependencies {
     // Cloudinary -> for Storage
     implementation("com.cloudinary:cloudinary-android:2.4.0")
 
+    implementation("androidx.lifecycle:lifecycle-runtime:2.6.1")
+
+    // required by Cloudinary -> for video
+    implementation("androidx.work:work-runtime:2.9.0")
 
 }

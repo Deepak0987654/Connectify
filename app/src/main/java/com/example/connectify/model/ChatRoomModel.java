@@ -10,18 +10,18 @@ public class ChatRoomModel {
     private Timestamp lastMessageTimestamp;
     private String lastMessageSenderId;
     private String lastMessage;
-    private boolean isLastImage;
+    private String type="text";
 
     public ChatRoomModel() {
     }
 
-    public ChatRoomModel(String chatroomId, List<String> userIds, Timestamp lastMessageTimestamp, String lastMessageSenderId, String lastMessage, boolean isLastImage) {
+    public ChatRoomModel(String chatroomId, List<String> userIds, Timestamp lastMessageTimestamp, String lastMessageSenderId, String lastMessage, String type) {
         this.chatroomId = chatroomId;
         this.userIds = userIds;
         this.lastMessageTimestamp = lastMessageTimestamp;
         this.lastMessageSenderId = lastMessageSenderId;
         this.lastMessage = lastMessage;
-        this.isLastImage = isLastImage;
+        this.type = type;
 
     }
 
@@ -65,11 +65,13 @@ public class ChatRoomModel {
         this.lastMessage = lastMessage;
     }
 
-    public boolean getIsLastImage() {
-        return isLastImage;
+
+    public String getType() {
+        return type;
     }
 
-    public void setLastImage(boolean image) {
-        isLastImage = image;
+    public void setType(String type) {
+        this.type = type;
     }
+
 }
