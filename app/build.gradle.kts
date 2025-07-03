@@ -53,7 +53,8 @@ dependencies {
     implementation("io.github.chaosleung:pinview:$pinview_version")
 
     // Country Code Picker
-    implementation("com.hbb20:ccp:2.5.0")
+    val ccp_version = "2.5.0"
+    implementation("com.hbb20:ccp:$ccp_version")
 
     // fragment
     val fragment_version = "1.8.6"
@@ -68,24 +69,37 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
 
     // to load images from Urls using library like glide or picasso
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
+    val glide_version = "4.16.0"
+    implementation("com.github.bumptech.glide:glide:$glide_version")
+    annotationProcessor("com.github.bumptech.glide:compiler:$glide_version")
 
     // FirebaseUI for Cloud Firestore
-    implementation("com.firebaseui:firebase-ui-firestore:9.0.0")
+    val firebaseui_version = "9.0.0"
+    implementation("com.firebaseui:firebase-ui-firestore:$firebaseui_version")
 
     // Image Picker
-    implementation("com.github.dhaval2404:imagepicker:2.1")
+    val imagepicker_version = "2.1"
+    implementation("com.github.dhaval2404:imagepicker:$imagepicker_version")
 
     // Cloudinary -> for Storage
-    implementation("com.cloudinary:cloudinary-android:2.4.0")
+    val cloudinary_version = "2.4.0"
+    implementation("com.cloudinary:cloudinary-android:$cloudinary_version")
 
-    implementation("androidx.lifecycle:lifecycle-runtime:2.6.1")
+    // lifecycle
+    val lifecycle_version = "2.6.1"
+    implementation("androidx.lifecycle:lifecycle-runtime:$lifecycle_version")
 
     // required by Cloudinary -> for video
-    implementation("androidx.work:work-runtime:2.9.0")
+    val work_version = "2.9.0"
+    implementation("androidx.work:work-runtime:$work_version")
 
     // PhotoView
-    implementation("com.github.chrisbanes:PhotoView:2.3.0")
+    val photoview_version = "2.3.0"
+    implementation("com.github.chrisbanes:PhotoView:$photoview_version")
+
+    // ExoPlayer -> for VideoView
+    val exo_version = "1.3.1"
+    implementation("androidx.media3:media3-exoplayer:$exo_version")
+    implementation("androidx.media3:media3-ui:$exo_version")
 
 }

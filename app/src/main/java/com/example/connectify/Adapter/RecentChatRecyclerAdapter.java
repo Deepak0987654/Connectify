@@ -77,7 +77,7 @@ public class RecentChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatRoom
                                 holder.lastMessageImage.setVisibility(View.VISIBLE);
                                 holder.imageText.setVisibility(View.VISIBLE);
                                 holder.lastMessageText.setVisibility(View.VISIBLE);
-                                holder.lastMessageImage.setImageResource(R.drawable.image);
+                                holder.lastMessageImage.setImageResource(R.drawable.video);
                                 holder.lastMessageText.setText("Video");
                                 if (lastMessageSentByMe)
                                     holder.imageText.setText("You : ");

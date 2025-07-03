@@ -21,13 +21,29 @@
             android:textColor="@color/text_primary_light"
             android:visibility="gone"
             android:textSize="18sp"/>
-        <ImageView
-            android:id="@+id/left_chat_imageview"
+        <FrameLayout
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:contentDescription="@string/todo"
-            android:scaleType="centerCrop"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:id="@+id/left_media_container">
+
+            <ImageView
+                android:id="@+id/left_chat_imageview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                android:contentDescription="@string/todo" />
+
+            <ImageView
+                android:id="@+id/left_play_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/ic_video_placeholder_24"
+                android:visibility="gone" />
+        </FrameLayout>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/right_chat_layout"
@@ -45,13 +61,29 @@
             android:textColor="@color/text_primary_light"
             android:visibility="gone"
             android:textSize="18sp"/>
-        <ImageView
-            android:id="@+id/right_chat_imageview"
+        <FrameLayout
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:contentDescription="@string/todo"
-            android:scaleType="centerCrop"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:id="@+id/right_media_container">
+
+            <ImageView
+                android:id="@+id/right_chat_imageview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                android:contentDescription="@string/todo" />
+
+            <ImageView
+                android:id="@+id/right_play_icon"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/ic_video_placeholder_24"
+                android:visibility="gone" />
+        </FrameLayout>
     </LinearLayout>
 
 </RelativeLayout>
