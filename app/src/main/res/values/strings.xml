@@ -52,4 +52,5 @@
     <string name="location">Location</string>
     <string name="video">Video</string>
     <string name="download">Download</string>
+    <string name="file">File</string>
 </resources>

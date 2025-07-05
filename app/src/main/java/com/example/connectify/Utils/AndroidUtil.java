@@ -26,5 +26,4 @@ public class AndroidUtil {
         return model;
     }
 
-
 }

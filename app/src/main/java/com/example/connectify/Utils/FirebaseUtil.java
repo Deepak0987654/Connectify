@@ -114,5 +114,10 @@ public class FirebaseUtil {
         FirebaseAuth.getInstance().signOut();
     }
 
+    public static DocumentReference getChatKeyReference(String docId) {
+        return FirebaseFirestore.getInstance().collection("chat_keys").document(docId);
+    }
+
+
 
 }

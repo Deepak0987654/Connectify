@@ -17,12 +17,19 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.connectify.DirectChatActivity;
 import com.example.connectify.R;
+import com.example.connectify.Utils.AESHelper;
 import com.example.connectify.Utils.AndroidUtil;
 import com.example.connectify.Utils.FirebaseUtil;
 import com.example.connectify.model.ChatRoomModel;
 import com.example.connectify.model.UserModel;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import javax.crypto.SecretKey;
 
 public class RecentChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatRoomModel, RecentChatRecyclerAdapter.ChatRoomModelViewHolder> {
     Context context;
@@ -83,13 +90,37 @@ public class RecentChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatRoom
                                     holder.imageText.setText("You : ");
                                 break;
                             case "text":
-                                Log.e("seen", "onBindViewHolder: text" );
+                            default:
                                 holder.lastMessageImage.setVisibility(View.GONE);
                                 holder.imageText.setVisibility(View.GONE);
-                                if (lastMessageSentByMe)
-                                    holder.lastMessageText.setText("You : " + model.getLastMessage());
-                                else
-                                    holder.lastMessageText.setText(model.getLastMessage());
+                                holder.lastMessageText.setText("Loading...");
+
+                                // Get consistent documentId
+                                String user1 = model.getUserIds().get(0);
+                                String user2 = model.getUserIds().get(1);
+                                String docId = getChatKeyDocId(user1, user2);
+
+                                FirebaseUtil.getChatKeyReference(docId).get().addOnSuccessListener(documentSnapshot -> {
+                                    if (documentSnapshot.exists()) {
+                                        String base64Key = documentSnapshot.getString("aesKey");
+                                        if (base64Key != null) {
+                                            try {
+                                                SecretKey aesKey = AESHelper.decodeKeyFromBase64(base64Key);
+                                                AESHelper.setSharedSecretKey(AESHelper.decodeKeyFromBase64(base64Key));
+                                                String decrypted = AESHelper.decrypt(model.getLastMessage());
+                                                if (lastMessageSentByMe) {
+                                                    holder.lastMessageText.setText("You: " + decrypted);
+                                                } else {
+                                                    holder.lastMessageText.setText(decrypted);
+                                                }
+                                            } catch (Exception e) {
+                                                holder.lastMessageText.setText("🔒 Unable to decrypt");
+                                            }
+                                        } else {
+                                            holder.lastMessageText.setText("🔒 Key missing");
+                                        }
+                                    }
+                                });
                                 break;
                         }
 
@@ -103,9 +134,16 @@ public class RecentChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatRoom
                         });
                     }
 
+
                 });
                     Log.e("seen", "RecentChatRecyclerAdapter: outside + "+ model.getLastMessage());
     }
+    public static String getChatKeyDocId(String uid1, String uid2) {
+        List<String> ids = Arrays.asList(uid1, uid2);
+        Collections.sort(ids);
+        return ids.get(0) + "_" + ids.get(1);
+    }
+
 
     @NonNull
     @Override
@@ -128,5 +166,6 @@ public class RecentChatRecyclerAdapter extends FirestoreRecyclerAdapter<ChatRoom
             lastMessageImage = itemView.findViewById(R.id.last_message_image);
             imageText = itemView.findViewById(R.id.image_description_txt);
         }
+
     }
 }
