@@ -7,13 +7,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
-    android:background="@color/background_light"
+    android:background="@color/background"
     tools:context=".HomeScreen">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/toolbar_background_light"
+        android:background="@color/toolbar_background"
         android:padding="5dp">
 
         <TextView
@@ -24,7 +24,7 @@
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/search_icon"
             android:text="@string/app_name"
-            android:textColor="@color/toolbar_text_light"
+            android:textColor="@color/toolbar_text"
             android:textSize="25sp"
             android:textStyle="bold" />
         <ImageView
@@ -33,7 +33,7 @@
             android:layout_height="30dp"
             android:layout_centerVertical="true"
             android:contentDescription="@string/todo"
-            android:src="@drawable/dots"
+            android:src="@drawable/baseline_more_vert_24"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="5dp" />
         <ImageView
@@ -53,12 +53,12 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:contentDescription="@string/todo"
-        android:background="@color/background_light"
+        android:background="@color/background"
         android:layout_height="wrap_content"/>
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
-        android:background="@color/divider_light"
+        android:background="@color/divider"
         android:layout_height="2dp"/>
 
     <androidx.viewpager.widget.ViewPager

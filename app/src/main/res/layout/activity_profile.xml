@@ -7,20 +7,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:background="@color/background_light"
+    android:background="@color/background"
     android:padding="20dp"
     tools:context=".ProfileActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/toolbar_background_light"
+        android:background="@color/toolbar_background"
         android:padding="10dp">
 
         <ImageButton
             android:id="@+id/back_arrow_icon_btn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/back_arrow"
             android:contentDescription="@string/todo"
@@ -28,7 +28,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/toolbar_text_light"
+            android:textColor="@color/toolbar_text"
             android:layout_marginStart="10dp"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/back_arrow_icon_btn"
@@ -42,7 +42,7 @@
         android:id="@+id/profile_pic"
         android:layout_width="160dp"
         android:layout_height="160dp"
-        android:background="@color/background_light"
+        android:background="@color/background"
         android:contentDescription="@string/todo"
         android:src="@drawable/man_4"
         android:layout_marginTop="80dp"
@@ -55,7 +55,7 @@
         android:layout_height="48dp"
         android:autofillHints=""
         android:layout_marginTop="50dp"
-        android:textColor="@color/text_primary_light"
+        android:textColor="@color/text_primary"
         android:layout_marginBottom="30dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
@@ -71,7 +71,7 @@
         android:autofillHints=""
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:textColor="@color/text_secondary_light"
+        android:textColor="@color/text_secondary"
         android:hint="@string/phone_number"
         android:enabled="false"
         android:padding="10dp"
@@ -89,14 +89,14 @@
             android:id="@+id/profile_update_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/send_btn_light"
-            android:textColor="@color/text_primary_d_light"
+            android:backgroundTint="@color/send_btn"
+            android:textColor="@color/text_primary_night"
             android:text="@string/update_profile"
             android:textAllCaps="true" />
         <ProgressBar
             android:layout_width="32dp"
             android:layout_height="wrap_content"
-            android:progressTint="@color/progress_color_light"
+            android:progressTint="@color/progress_color"
             android:layout_gravity="center"
             android:id="@+id/profile_progress_bar"/>
     </LinearLayout>

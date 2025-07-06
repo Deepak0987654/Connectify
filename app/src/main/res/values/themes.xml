@@ -2,7 +2,21 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Connectify" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/primary_accent</item>
+        <item name="colorPrimaryContainer">@color/primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Background and surface -->
+        <item name="android:colorBackground">@color/background</item>
+        <item name="colorSurface">@color/background</item>
+        <item name="colorOnSurface">@color/text_primary</item>
+
+        <!-- Toolbar and icon/text colors -->
+        <item name="toolbarStyle">@style/Widget.Material3.Toolbar</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+
     </style>
 
     <style name="Theme.Connectify" parent="Base.Theme.Connectify" />

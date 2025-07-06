@@ -1,54 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
 
-    <color name="primary_light_accent">#00BCD4</color>
-    <color name="primary_dark_accent">#00ACC1</color>
+    <color name="primary_accent">#0097A7</color>
+    <color name="primary">#B2EBF2</color>
 
-    <color name="primary_light">#B2EBF2</color>
-    <color name="primary_dark">#26C6DA</color>
+    <color name="background">#FFFFFF</color>
 
-    <color name="background_light">#FFFFFF</color>
-    <color name="background_dark">#121212</color>
+    <color name="toolbar_background">#0097A7</color>
+    <color name="toolbar_text">#212121</color>
+    <color name="toolbar_icon">#212121</color>
 
-    <color name="toolbar_background_light">#00BCD4</color>
-    <color name="toolbar_background_dark">#00ACC1</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_primary_night">#E0E0E0</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_secondary_night">#BDBDBD</color>
 
-    <color name="toolbar_text_light">#212121</color>
-    <color name="toolbar_text_dark">#E0E0E0</color>
+    <color name="divider">#E0E0E0</color>
 
-    <color name="toolbar_icon_light">#212121</color>
-    <color name="toolbar_icon_dark">#E0E0E0</color>
+    <color name="chat_bubble_self">#DCF8C6</color>
+    <color name="chat_bubble_other">#EEEEEE</color>
 
-    <color name="text_primary_light">#212121</color>
-    <color name="text_primary_dark">#E0E0E0</color>
+    <color name="send_btn">#0097A7</color>
 
-    <color name="text_primary_d_light">#E0E0E0</color>
-    <color name="text_primary_l_dark">#212121</color>
-
-    <color name="text_secondary_light">#757575</color>
-    <color name="text_secondary_dark">#BDBDBD</color>
-
-    <color name="text_secondary_d_light">#BDBDBD</color>
-    <color name="text_secondary_l_dark">#757575</color>
-
-    <color name="divider_light">#E0E0E0</color>
-    <color name="divider_dark">#333333</color>
-
-    <color name="chat_bubble_self_light">#DCF8C6</color>
-    <color name="chat_bubble_self_dark">#1F6357</color>
-
-    <color name="chat_bubble_other_light">#EEEEEE</color>
-    <color name="chat_bubble_other_dark">#2E2E2E</color>
-
-    <color name="send_btn_light">#00BCD4</color>
-    <color name="send_btn_dark">#00ACC1</color>
-
-    <color name="progress_color_light">#00BCD4</color>
-    <color name="progress_color_dark">#00ACC1</color>
-
-    <color name="progress_background_light">#B2EBF2</color>
-    <color name="progress_background_dark">#26C6DA</color>
+    <color name="progress_color">#0097A7</color>
+    <color name="progress_background">#B2EBF2</color>
 
 
 </resources>

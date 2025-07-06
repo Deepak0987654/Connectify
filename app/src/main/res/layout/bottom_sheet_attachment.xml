@@ -3,27 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@color/background"
     android:padding="16dp">
 
     <TextView android:text="@string/choose_an_option"
         android:textStyle="bold"
         android:layout_marginBottom="8dp"
         android:textSize="16sp"
+        android:textColor="@color/text_primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <Button android:id="@+id/option_camera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/send_btn"
         android:text="@string/camera" />
 
     <Button android:id="@+id/option_gallery"
         android:layout_width="match_parent"
+        android:background="@color/send_btn"
         android:layout_height="wrap_content"
         android:text="@string/gallery" />
 
     <Button android:id="@+id/option_video"
         android:layout_width="match_parent"
+        android:background="@color/send_btn"
         android:layout_height="wrap_content"
         android:text="@string/video" />
 

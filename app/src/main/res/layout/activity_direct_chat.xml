@@ -6,14 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
-    android:background="@color/background_light"
+    android:background="@color/background"
     tools:context=".DirectChatActivity">
 
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/toolbar_background_light"
+        android:background="@color/toolbar_background"
         android:padding="5dp">
 
         <ImageButton
@@ -34,7 +34,7 @@
             <TextView
                 android:id="@+id/other_username"
                 android:layout_height="wrap_content"
-                android:textColor="@color/toolbar_text_light"
+                android:textColor="@color/toolbar_text"
                 android:layout_width="wrap_content"
                 android:text="@string/username"
                 android:textSize="20sp"
@@ -42,7 +42,7 @@
             <TextView
                 android:id="@+id/user_status"
                 android:layout_height="wrap_content"
-                android:textColor="@color/toolbar_text_light"
+                android:textColor="@color/toolbar_text"
                 android:layout_width="wrap_content"
                 android:textSize="10sp" />
         </LinearLayout>
@@ -88,7 +88,7 @@
             android:minHeight="48dp"
             android:padding="10dp"
             android:paddingEnd="38dp"
-            android:textColor="@color/text_primary_light"
+            android:textColor="@color/text_primary_night"
             tools:ignore="TouchTargetSizeCheck" />
         <ImageButton
             android:layout_width="48dp"
@@ -97,7 +97,7 @@
             android:src="@drawable/send"
             android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
-            app:tint="@color/send_btn_light"
+            app:tint="@color/send_btn"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:id="@+id/message_send_btn"
             android:padding="8dp" />

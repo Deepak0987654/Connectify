@@ -7,14 +7,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:background="@color/background_light"
+    android:background="@color/background"
     tools:context=".OTP">
 
     <RelativeLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/toolbar_background_light"
+        android:background="@color/toolbar_background"
         android:padding="10dp">
 
         <ImageButton
@@ -30,7 +30,7 @@
             android:id="@+id/other_username"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:textColor="@color/toolbar_text_light"
+            android:textColor="@color/toolbar_text"
             android:layout_width="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/back_arrow_icon_btn"
@@ -52,14 +52,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:textColor="@color/text_secondary_light"
+            android:textColor="@color/text_secondary"
             android:layout_marginEnd="10dp"
             android:text="@string/code_has_been_sent_to" />
         <TextView
             android:id="@+id/phone_number_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_primary_light"
+            android:textColor="@color/text_primary"
             android:textSize="18sp"
             android:text="@string/_0000_0000_00" />
 
@@ -73,7 +73,7 @@
         app:itemSpacing="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:itemBackground="@color/background_light"
+        android:itemBackground="@color/background"
         android:layout_gravity="center"
         android:inputType="number"
         android:contentDescription="@string/todo"
@@ -96,7 +96,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:textSize="18sp"
-        android:textColor="@color/text_secondary_light"
+        android:textColor="@color/text_secondary"
         android:layout_marginTop="80dp"
         android:layout_marginBottom="100dp"
         android:text="Resend code in 52 Sec" />
@@ -107,8 +107,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/verify"
-        android:backgroundTint="@color/send_btn_light"
-        android:textColor="@color/text_primary_d_light"
+        android:backgroundTint="@color/send_btn"
+        android:textColor="@color/text_primary_night"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginStart="20dp"

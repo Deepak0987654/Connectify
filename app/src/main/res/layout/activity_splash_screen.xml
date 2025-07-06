@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@color/background_light"
+    android:background="@color/background"
     tools:context=".SplashScreen">
 
     <ImageView
@@ -22,8 +22,8 @@
         android:id="@+id/progress_bar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="200dp"
-        android:progressTint="@color/progress_color_light"
-        android:backgroundTint="@color/progress_background_light"
+        android:progressTint="@color/progress_color"
+        android:backgroundTint="@color/progress_background"
         android:layout_height="wrap_content"
         android:progress="0"
         android:max="100" />

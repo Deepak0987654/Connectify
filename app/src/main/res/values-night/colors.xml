@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+
+    <color name="primary_accent">#00BCD4</color>
+    <color name="primary">#26C6DA</color>
+
+    <color name="background">#121212</color>
+
+    <color name="toolbar_background">#1E1E1E</color>
+    <color name="toolbar_text">#E0E0E0</color>
+    <color name="toolbar_icon">#E0E0E0</color>
+
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_primary_night">#212121</color>
+    <color name="text_secondary">#B0BEC5</color>
+    <color name="text_secondary_night">#757575</color>
+
+    <color name="divider">#00BCD4</color>
+
+    <color name="chat_bubble_self">#1F6357</color>
+    <color name="chat_bubble_other">#2A2A2A</color>
+
+    <color name="send_btn">#00BCD4</color>
+
+    <color name="progress_color">#00BCD4</color>
+    <color name="progress_background">#37474F</color>
+</resources>

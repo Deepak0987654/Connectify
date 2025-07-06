@@ -43,9 +43,9 @@
     <string name="thik_hu_bhai">thik hu bhai</string>
     <string name="update_profile">Update Profile</string>
     <string name="_10_00">10:00</string>
-    <string name="status">Status</string>
-    <string name="groups">Groups</string>
-    <string name="calls">Calls</string>
+    <string name="status">Status Not Implemented Yet!!</string>
+    <string name="groups">Groups Not Implemented Yet!!</string>
+    <string name="calls">Calls Not Implemented Yet!!</string>
     <string name="choose_an_option">Choose an option</string>
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>

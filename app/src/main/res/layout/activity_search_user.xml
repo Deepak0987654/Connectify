@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_light"
+    android:background="@color/background"
     android:orientation="vertical"
     android:padding="20dp"
     tools:context=".SearchUserActivity">
@@ -14,13 +14,13 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/toolbar_background_light"
+        android:background="@color/toolbar_background"
         android:padding="10dp">
 
         <ImageButton
             android:id="@+id/back_arrow_icon_btn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/back_arrow"
             android:contentDescription="@string/todo"
@@ -28,7 +28,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/toolbar_text_light"
+            android:textColor="@color/toolbar_text"
             android:layout_marginStart="10dp"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/back_arrow_icon_btn"
@@ -50,7 +50,7 @@
             android:inputType="text"
             android:layout_centerVertical="true"
             android:padding="10dp"
-            android:textColor="@color/text_primary_light"
+            android:textColor="@color/text_primary"
             android:hint="@string/username"
             android:layout_toStartOf="@id/search_user_btn"
             android:layout_margin="10dp"/>
